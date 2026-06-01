@@ -49,6 +49,37 @@ Don't trust the exe or it doesn't work? No problem
 3. Install the dependencies with `python -m pip install -r requirements.txt`
 4. Run the application with `python src/main.py`
 
+## Development
+
+To submit changes please fork the repository and submit a Pull Request. The pull request should
+pass the CI pipeline, it is recommended to install pre-commit to do so automatically.
+
+You are welcome to use AI to **assist** you in programming your changes, however large PR fully
+vibe coded without a care for the existing codespace may be closed.
+
+There is currently no test suite so you are expected to dev test your changes to make sure they
+function as expected.
+
+### Setting up your env
+
+```bash
+pyenv install 3.10
+pyenv local 3.10
+
+python -m venv .venv
+source .venv/bin/activate  # Linux
+.venv\Scripts\activate # Windows
+
+pip install -r requirements.txt
+
+# Enable pre-commit hooks
+pip install pre-commit
+pre-commit install
+
+# Run the app
+python src/main.py
+```
+
 ## Demo
 Search entire archive for text
 
