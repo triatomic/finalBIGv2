@@ -562,6 +562,17 @@ class MainWindow(QMainWindow, HasUiElements, SearchManager):
             if tab.unsaved:
                 tab.save()
 
+        # A BIG save is a full repack of the entire archive. When we're writing
+        # back over the same file with nothing pending, the result is identical
+        # to what's already on disk, so skip the rewrite. Save As targets a new
+        # path, so it always writes.
+        writing_in_place = self.path is not None and os.path.normcase(
+            os.path.abspath(path)
+        ) == os.path.normcase(os.path.abspath(self.path))
+        if writing_in_place and not self.archive.modified_entries:
+            QMessageBox.information(self, "Done", "No changes to save.")
+            return True
+
         try:
             self.archive.save(path)
             QMessageBox.information(self, "Done", "Archive has been saved")
